@@ -186,10 +186,12 @@ void pretty_progress(int step, int steps, float time) {
     printf(time > 1.0f ? "\r%s %i/%i - %.2fs/it" : "\r%s %i/%i - %.2fit/s",
            progress.c_str(), step, steps,
            time > 1.0f || time == 0 ? time : (1.0f / time));
-    fflush(stdout);  // for linux
+    fflush(stderr);  // for linux
     if (step == steps) {
         printf("\n");
     }
+    fprintf(stdout, "{'step' : '%i', 'steps': '%i', 'time': '%.2f'}\n", step, steps, time);
+    fflush(stdout);  // for linux
 }
 
 static sd_log_cb_t sd_log_cb = NULL;
